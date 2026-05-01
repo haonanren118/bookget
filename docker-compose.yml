@@ -1,0 +1,46 @@
+# ============================================
+# bookget-web - Docker Compose 配置 (飞牛NAS)
+# ============================================
+# 部署步骤：
+# 1. 将整个 bookget-main 文件夹上传到飞牛NAS
+#    路径: /vol1/1000/bookget-main/
+# 2. SSH 登录飞牛NAS，进入目录:
+#    cd /vol1/1000/bookget-main
+# 3. 构建并启动:
+#    docker compose up -d --build
+# 4. 访问 http://<飞牛IP>:8088
+# ============================================
+
+services:
+  bookget-web:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: bookget-web
+    restart: unless-stopped
+    ports:
+      - "8088:8088"
+    environment:
+      - TZ=Asia/Shanghai
+      - PORT=8088
+      # 下载目录 (容器内路径，不要改)
+      - DOWNLOAD_DIR=/app/downloads
+      # 下载间隔 (秒)，防止被封
+      - SLEEP=3
+      # 线程数
+      - THREAD=1
+      # 最大并发任务数
+      - MAX_CONCURRENT=16
+    volumes:
+      # 已下载文件保存位置
+      # 冒号左侧 = 飞牛NAS宿主机路径，可按需修改
+      # 冒号右侧 = 容器内路径，不要改
+      - /vol1/1000/bookget-main/downloads:/app/downloads
+      # cookie/header 文件持久化（用于需要登录的图书馆）
+      - /vol1/1000/bookget-main/config:/app/config
+    networks:
+      - bookget-net
+
+networks:
+  bookget-net:
+    driver: bridge

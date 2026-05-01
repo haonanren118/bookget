@@ -1,0 +1,24 @@
+# Git
+.git
+.github
+.gitignore
+
+# IDE
+.idea
+.vscode
+*.swp
+
+# Build artifacts
+dist/
+*.exe
+
+# GUI (不需要打包进Docker)
+bookget-gui/
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Docs
+README.md
+LICENSE

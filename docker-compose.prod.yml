@@ -1,0 +1,39 @@
+# ============================================
+# bookget-web - Docker Compose (预编译版)
+# 不需要本地 Go 编译环境，直接拉取镜像即可
+# ============================================
+#
+# 使用方式 (飞牛NAS):
+# 1. 将此文件上传到飞牛NAS，如 /vol1/1000/bookget-main/
+# 2. 创建 downloads/ 目录
+# 3. SSH 登录飞牛，docker compose -f docker-compose.prod.yml up -d
+# 4. 访问 http://<飞牛IP>:8088
+#
+# 注意: 此配置使用预编译镜像，需要先构建并推送到镜像仓库
+# 如果没有预编译镜像，请使用 docker-compose.yml (包含 build)
+# ============================================
+
+services:
+  bookget-web:
+    image: your-registry/bookget-web:latest
+    container_name: bookget-web
+    restart: unless-stopped
+    ports:
+      - "8088:8088"
+    environment:
+      - TZ=Asia/Shanghai
+      - PORT=8088
+      - DOWNLOAD_DIR=/app/downloads
+      - SLEEP=3
+      - THREAD=1
+      - MAX_CONCURRENT=16
+    volumes:
+      # 修改左侧路径为你的飞牛实际路径
+      - /vol1/1000/bookget-main/downloads:/app/downloads
+      - /vol1/1000/bookget-main/config:/app/config
+    networks:
+      - bookget-net
+
+networks:
+  bookget-net:
+    driver: bridge

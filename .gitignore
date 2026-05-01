@@ -1,0 +1,17 @@
+# Default ignored files
+/dist/
+/target/
+/dependencies/
+*.exe
+/.idea/
+.fleet/
+*.xml
+*.7z
+*.bak
+*.zip
+
+# Downloads and runtime data
+/downloads/
+cookie.txt
+header.txt
+bookget-web
