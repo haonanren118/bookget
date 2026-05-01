@@ -45,7 +45,7 @@ docker compose -f docker-compose.prod.yml up -d
 - `cookie.txt` — 登录认证 Cookie（Netscape 格式）
 - `header.txt` — 自定义 HTTP Header
 
-**注意**：这些文件包含敏感凭证，**不要提交到代码仓库**。
+**注意**：这些文件包含敏感凭证。
 
 ### 目录结构
 
