@@ -8,7 +8,7 @@
 
 ## 快速部署
 
-### 方式一：本地构建（推荐 NAS / 服务器）
+### 方式一：本地构建（推荐docker/ NAS / 服务器）
 
 ```bash
 git clone https://github.com/haonanren118/bookget.git
